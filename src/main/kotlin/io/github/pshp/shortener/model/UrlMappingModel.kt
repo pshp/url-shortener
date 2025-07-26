@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Table(
     name="url_mapping",
 )
-data class UrlMapping(
+data class UrlMappingModel(
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     val id: Long = 0,
