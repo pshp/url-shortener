@@ -4,16 +4,16 @@ import jakarta.persistence.*
 
 @Entity
 @Table(
-    name="short_urls",
+    name="url_mapping",
 )
-data class ShortUrl(
+data class UrlMapping(
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long = 0,
 
     @Column(name = "original_url", nullable = false)
     val originalUrl: String,
 
-    @Column(name = "short_url", nullable = false, unique = true)
-    val shortUrl: String
+    @Column(name = "encoded_url", nullable = false, unique = true)
+    val encodedUrl: String
 )
