@@ -1,9 +1,11 @@
 package io.github.pshp.shortener.dto
 
-import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 
 data class EncodeUrlRequest(
-    @field:NotBlank
-    // TODO: add url validation check using regex
+    @field:Pattern(
+        regexp = "https?://.*",
+        message = "Must be a valid HTTP or HTTPS URL"
+    )
     val url: String
 )

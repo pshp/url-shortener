@@ -1,7 +1,9 @@
 package io.github.pshp.shortener.controller
 
 import io.github.pshp.shortener.dto.EncodeUrlRequest
+import io.github.pshp.shortener.model.UrlMappingModel
 import io.github.pshp.shortener.service.UrlMappingService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,11 +20,12 @@ class UrlMappingController (
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun shorten(@RequestBody req: EncodeUrlRequest): String  =
-        service.shortenUrl(req.url).encodedUrl
+    fun shorten(@Valid @RequestBody req: EncodeUrlRequest): UrlMappingModel {
+        return service.shortenUrl(req.url)
+    }
 
     @GetMapping("/{code}")
-    fun resolve(@PathVariable code: String): String =
-        service.getByEncodedUrl(code).originalUrl
+    fun resolve(@PathVariable code: String): UrlMappingModel =
+        service.getByEncodedUrl(code)
 
 }
