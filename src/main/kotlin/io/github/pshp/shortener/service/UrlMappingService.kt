@@ -12,8 +12,10 @@ class UrlMappingService(
     private val repository: UrlMappingRepository
 ) {
     fun shortenUrl(originalUrl: String): UrlMappingModel {
-        // TODO: add lookup if url has already been encoded and return existing record if found
-
+        val existing = repository.findByOriginalUrl(originalUrl)
+        if (existing != null) {
+            return existing
+        }
         val encodedUrl = generateUuid(originalUrl)
         val newRecord = UrlMappingModel(originalUrl = originalUrl, encodedUrl = encodedUrl)
         return repository.save(newRecord)
