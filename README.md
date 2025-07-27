@@ -1,28 +1,18 @@
 # URL Shortener
 
-A minimal URL-shortening API built with Kotlin and Spring Boot.  
-It stores mappings between long URLs and generated codes in PostgreSQL.
-
----
+This is a minimal URL shortener API built with Kotlin and Spring Boot. It uses PostgreSQL to store mappings between long URLs and generated codes.
 
 ## Prerequisites
 
-- Java 17+
-- Docker (for Postgres)
+- Java 17 or later
+- Docker (for running Postgres)
 
----
-
-## Running locally
+## Running the app
 
 1. **Start Postgres**
 
    ```bash
-   docker run --rm -d --name shortener-db \
-     -p 5432:5432 \
-     -e POSTGRES_DB=shortener \
-     -e POSTGRES_USER=user \
-     -e POSTGRES_PASSWORD=password \
-     postgres:15-alpine
+   docker run --rm -d --name shortener-db      -p 5432:5432      -e POSTGRES_DB=shortener      -e POSTGRES_USER=user      -e POSTGRES_PASSWORD=password      postgres:15-alpine
    ```
 
 2. **Start the application**
@@ -31,45 +21,29 @@ It stores mappings between long URLs and generated codes in PostgreSQL.
    ./gradlew bootRun
    ```
 
-   The service listens on **`http://localhost:8080`** and creates the schema automatically.
+The service will listen on `http://localhost:8080` and create the schema automatically.
 
----
-
-## API
+## API Endpoints
 
 ### Create a short URL
+
 `POST /url-mappings`
 
 ```json
-{ "url": "https://example.com/very/long/path" }
+{ "url": "https://example.com" }
 ```
 
-- Returns **201 Created**
-- Body → generated code (plain string)
+Response: **201 Created** and the generated code (plain string).
 
 ### Resolve a short URL
+
 `GET /url-mappings/{code}`
 
-- Returns **200 OK** and the original URL (plain string)
-- Returns **404 Not Found** if the code doesn’t exist
-
-Example:
-
-```bash
-# shorten
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"url":"https://example.com"}' \
-  http://localhost:8080/url-mappings
-
-# resolve
-curl http://localhost:8080/url-mappings/<code>
-```
-
----
+Response: **200 OK** and the original URL (plain string), or **404 Not Found** if the code does not exist.
 
 ## Next steps
 
-- Add unit / integration tests
-- Use Flyway for schema migrations
+- Add unit and integration tests
+- Use Flyway for database migrations
 - Improve code generation (shorter codes, deduplication)
-- Provide Docker Compose for app + Postgres
+- Containerize with Docker Compose  
