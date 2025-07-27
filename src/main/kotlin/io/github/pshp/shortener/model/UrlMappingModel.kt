@@ -1,6 +1,8 @@
 package io.github.pshp.shortener.model
 
 import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
+import java.time.Instant
 
 @Entity
 @Table(
@@ -15,5 +17,9 @@ data class UrlMappingModel(
     val originalUrl: String,
 
     @Column(name = "encoded_url", nullable = false, unique = true)
-    val encodedUrl: String
+    val encodedUrl: String,
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    val createdAt: Instant? = null,
 )
