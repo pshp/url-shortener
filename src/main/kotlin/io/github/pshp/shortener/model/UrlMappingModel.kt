@@ -22,6 +22,8 @@ data class UrlMappingModel(
     @Column(name = "original_url", nullable = false, unique = true)
     val originalUrl: String,
 
+    // fullHash is in internal field not visible to the api consumer
+    // Stored in case we want to change the shortCode length in the future
     @JsonIgnore
     @Column(name = "full_hash", nullable = false, unique = true)
     val fullHash: String,
