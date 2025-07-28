@@ -2,7 +2,7 @@ package io.github.pshp.shortener.dto
 
 import jakarta.validation.constraints.Pattern
 
-// TODO: add validation to block URL encoding for specific URLs, such as the endpoint URL
+// TODO: add validation to block encoding for specific URLs, such as the endpoint of this api
 data class EncodeUrlRequest(
     @field:Pattern(
         regexp = "https?://.*",
