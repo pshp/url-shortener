@@ -59,3 +59,5 @@ Response: **200 OK** and the original URL (plain string), or **404 Not Found** i
 - Add unit and integration tests
 - Use Flyway for database migrations
 - Containerise with Docker Compose
+- Rate limiting e.g. to avoid DDOS
+- Cacheing with Redis for commonly used urls
