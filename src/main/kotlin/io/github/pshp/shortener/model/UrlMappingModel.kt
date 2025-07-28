@@ -1,5 +1,6 @@
 package io.github.pshp.shortener.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.Id
@@ -21,6 +22,7 @@ data class UrlMappingModel(
     @Column(name = "original_url", nullable = false, unique = true)
     val originalUrl: String,
 
+    @JsonIgnore
     @Column(name = "full_hash", nullable = false, unique = true)
     val fullHash: String,
 
