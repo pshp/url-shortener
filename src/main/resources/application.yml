@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/shortener
-    username: user
-    password: password
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/shortener}
+    username: ${DATABASE_USERNAME:user}
+    password: ${DATABASE_PASSWORD:password}
   jpa:
     hibernate:
       ddl-auto: update
 server:
-  port: 8080
+  port: ${SERVICE_PORT:8080}
