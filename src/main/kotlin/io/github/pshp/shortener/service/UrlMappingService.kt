@@ -1,6 +1,6 @@
 package io.github.pshp.shortener.service
 
-import io.github.pshp.shortener.util.sha256Base64Url
+import io.github.pshp.shortener.util.hashUrl
 import io.github.pshp.shortener.model.UrlMappingModel
 import io.github.pshp.shortener.repository.UrlMappingRepository
 import org.springframework.beans.factory.annotation.Value
@@ -21,7 +21,7 @@ class UrlMappingService(
     fun shortenUrl(originalUrl: String): UrlMappingModel {
 
         // generate a Base64URL with Sha256 hash and take the first N characters
-        val fullHash = originalUrl.sha256Base64Url()
+        val fullHash = originalUrl.hashUrl()
         val shortCode = fullHash.take(shortCodeLength)
 
         val newRecord = UrlMappingModel(originalUrl = originalUrl, fullHash = fullHash, shortCode = shortCode)
@@ -30,6 +30,7 @@ class UrlMappingService(
             repository.save(newRecord)
         } catch (e: DataIntegrityViolationException) {
             // on unique key violation fetch existing data
+            // identical URLs will create identical hashes, so this avoids creating unesesary records
             repository.findByOriginalUrl(originalUrl) ?: throw e
         }
     }

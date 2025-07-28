@@ -33,5 +33,4 @@ class UrlMappingController (
     }
 
     // TODO: add central error handing service, e.g. https://codesignal.com/learn/courses/advanced-restful-techniques/lessons/error-handling-in-spring-boot-with-kotlin
-
 }
