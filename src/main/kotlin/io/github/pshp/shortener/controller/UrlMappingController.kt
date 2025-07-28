@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/url-mappings")
@@ -22,11 +23,15 @@ class UrlMappingController (
     @ResponseStatus(HttpStatus.CREATED)
     fun shorten(@Valid @RequestBody req: EncodeUrlRequest): UrlMappingModel {
         return service.shortenUrl(req.url)
+        // TODO: if record already exists return 200 OK instead of 201 Created
     }
 
     @GetMapping("/{code}")
     fun resolve(@PathVariable code: String): UrlMappingModel {
-        return service.findByShortCode(code)
+        return service.resolveShortCode(code)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "short code not found: $code")
     }
+
+    // TODO: add central error handing service, e.g. https://codesignal.com/learn/courses/advanced-restful-techniques/lessons/error-handling-in-spring-boot-with-kotlin
 
 }

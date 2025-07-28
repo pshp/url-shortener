@@ -1,6 +1,6 @@
 package io.github.pshp.shortener.service
 
-import io.github.pshp.shortener.Util.sha256Base64Url
+import io.github.pshp.shortener.util.sha256Base64Url
 import io.github.pshp.shortener.model.UrlMappingModel
 import io.github.pshp.shortener.repository.UrlMappingRepository
 import org.springframework.beans.factory.annotation.Value
@@ -20,7 +20,7 @@ class UrlMappingService(
     // creates or returns an existing shortcode mapping for a given URL
     fun shortenUrl(originalUrl: String): UrlMappingModel {
 
-        // generate a Base64 Sha256 hash and take the first N characters
+        // generate a Base64URL with Sha256 hash and take the first N characters
         val fullHash = originalUrl.sha256Base64Url()
         val shortCode = fullHash.take(shortCodeLength)
 
@@ -34,8 +34,8 @@ class UrlMappingService(
         }
     }
 
-    // Looks up a shortcode and returns its URL mapping or throws 404 if not found
-    fun findByShortCode(shortCode: String): UrlMappingModel {
+    // Looks up a shortcode and returns its URL mapping. Returns null if not found
+    fun resolveShortCode(shortCode: String): UrlMappingModel? {
         return repository.findByShortCode(shortCode)
     }
 }
