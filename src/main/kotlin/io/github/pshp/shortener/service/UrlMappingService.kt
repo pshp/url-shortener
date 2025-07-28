@@ -18,8 +18,10 @@ class UrlMappingService(
         if (existing != null) {
             return existing
         }
+
         val fullHash = originalUrl.sha256Base64Url()
         val shortCode = fullHash.take(shortCodeLength)
+
         val newRecord = UrlMappingModel(originalUrl = originalUrl, fullHash = fullHash, shortCode = shortCode)
         return repository.save(newRecord)
     }
