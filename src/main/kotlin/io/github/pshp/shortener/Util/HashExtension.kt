@@ -4,19 +4,21 @@ import java.security.MessageDigest
 import java.util.Base64
 
 /*
- SHA256 and Base64 URL encoding
- used to create URL safe hashes
- note: will always create identical hashes for the same input URL
+ SHA256 hashing and Base64 URL encoding used to create URL safe strings
+ will always create identical output for the same input URL
 */
 fun String.hashUrl(): String {
-    // hash the input using sha256
-    val hash = MessageDigest
+
+    // Sha256 randomises the whole URL
+      val hash = MessageDigest
         .getInstance("SHA-256")
         .digest(toByteArray(Charsets.UTF_8))
 
-    // encode with Base64URL
-    return Base64
+    // Base64 url turns it into url safe A-z 0-9 -_ characters
+    val code = Base64
         .getUrlEncoder()
         .withoutPadding()
         .encodeToString(hash)
+
+    return code
 }
