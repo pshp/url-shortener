@@ -8,3 +8,5 @@ spring:
       ddl-auto: update
 server:
   port: ${SERVICE_PORT:8080}
+app:
+  short-code-length: ${SHORT_CODE_LENGTH:8}

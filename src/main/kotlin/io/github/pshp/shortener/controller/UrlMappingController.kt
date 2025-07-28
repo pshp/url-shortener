@@ -25,7 +25,8 @@ class UrlMappingController (
     }
 
     @GetMapping("/{code}")
-    fun resolve(@PathVariable code: String): UrlMappingModel =
-        service.getByEncodedUrl(code)
+    fun resolve(@PathVariable code: String): UrlMappingModel {
+        return service.findByShortCode(code)
+    }
 
 }

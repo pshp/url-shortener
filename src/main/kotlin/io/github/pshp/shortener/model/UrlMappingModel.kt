@@ -13,11 +13,14 @@ data class UrlMappingModel(
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(name = "original_url", nullable = false)
+    @Column(name = "original_url", nullable = false, unique = true)
     val originalUrl: String,
 
-    @Column(name = "encoded_url", nullable = false, unique = true)
-    val encodedUrl: String,
+    @Column(name = "full_hash", nullable = false, unique = true)
+    val fullHash: String,
+
+    @Column(name = "short_code", nullable = false, unique = true)
+    val shortCode: String,
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
