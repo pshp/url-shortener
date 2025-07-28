@@ -54,8 +54,8 @@ Response: **200 OK** and the original URL (plain string), or **404 Not Found** i
 
 ## Next steps
 
-- Add error handing service
-- Add improve URL validation
+- Create error handing service
+- Improve URL validation e.g. blacklisted URLs
 - Add unit and integration tests
 - Use Flyway for database migrations
 - Containerise with Docker Compose
