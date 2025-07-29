@@ -44,7 +44,7 @@ The service will listen on `http://localhost:8080` and create the schema automat
 { "url": "https://example.com" }
 ```
 
-Response: **201 Created or 200 OK if the record already exists** and the generated code.
+Response: **201 Created** and the generated code or the existing record.
 
 ### Resolve a short URL
 
@@ -54,10 +54,13 @@ Response: **200 OK** and the original URL (plain string), or **404 Not Found** i
 
 ## Next steps
 
-- Create error handing service
+- Return 200 OK if the record already exists
+- Create error handling service
 - Improve URL validation e.g. blacklisted URLs
+- Caching with Redis for retrieving commonly used urls
 - Add unit and integration tests
 - Use Flyway for database migrations
 - Containerise with Docker Compose
 - Rate limiting e.g. to avoid DDOS
-- Cacheing with Redis for commonly used urls
+- Error and metrics logging, particularly around the DB
+

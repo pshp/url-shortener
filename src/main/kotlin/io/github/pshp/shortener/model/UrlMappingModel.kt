@@ -28,6 +28,7 @@ data class UrlMappingModel(
     @Column(name = "full_hash", nullable = false)
     val fullHash: String,
 
+    // note: column length is static and might be out of sync with the shortcode length set in enviroment variables
     @Column(name = "short_code", nullable = false, unique = true, length = 8)
     val shortCode: String,
 
